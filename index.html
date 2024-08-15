@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jidoka</title>
-    <style>
-        label,
-        span {
-            display: block;
-        } 
-        input {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-   <header>
-        <nav>
-            <span>Jidoka</span>
-            <ul>
-                <li><a href="views/log-in.html">Log In</a></li>
-                <li><a href="views/sign-up.html">Sign Up</a></li>
-            </ul>
-        </nav>
-   </header> 
-   <main>
-       <form>
-            <span>Cliente</span>     
-            <label for="nombre">Nombre: </label>
-            <input id="nombre" type="text" placeholder="Ingrese nombre" required>
-            <label for="direccion">Direccion: </label>
-            <input id="direccion" type="text" placeholder="Ingrese direccion" required>
-            <label for="telefono">Telefono: </label>
-            <input id="telefono" type="number" placeholder="Ingrese telefono" required>
-            <span>Factura</span>     
-            <label for="id">Id: </label>
-            <input id="id" type="number" placeholder="Ingrese ID" required>
-            <label for="fecha">Fecha: </label>
-            <input id="fecha" type="date" placeholder="Ingrese una fecha" required>
-            <label for="producto">Producto: </label>
-            <input id="producto" type="text" placeholder="Ingrese nombre" required>
-            <label for="cantidad">Cantidad: </label>
-            <input id="cantidad" type="number" placeholder="Ingrese cantidad" required>
-            <label for="precio">Precio: </label>
-            <input id="precio" type="number" placeholder="Ingrese precio" required>
-            <button type="submit">Descargar</button>
-       </form>
-   </main>
-   <footer></footer>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" 
-       integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jidoka</title>
+        <link rel="stylesheet" href="style/index-styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <span>Jidoka</span>
+                <ul>
+                    <li><a href="views/log-in.html">Log In</a></li>
+                    <li><a href="views/sign-up.html">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header> 
+        <main>
+            <form>
+                <div class="upper">
+                    <div class="company">
+                        <span>Comercializadora Global</span>
+                        <span class="small">3009 Hanifan Lane, Mcdonough, 30253</span>
+                        <span class="small">Tel: 678-583-3482</span>
+                    </div>
+                    <div class="factura-detalle">
+                        <div class="parte-derecha">
+                            <label for="id">Factura ID</label>
+                            <input id="id" type="number" placeholder="Ingrese ID de la factura" required>
+                            <label for="fecha">Fecha: </label>
+                            <input id="fecha" type="date" placeholder="Ingrese una fecha" required>
+                        </div>
+                        <div class="parte-izquierda">
+                            <label for="nombre">Nombre: </label>
+                            <input id="nombre" type="text" placeholder="Ingrese nombre del cliente" required>
+                            <label for="direccion">Direccion: </label>
+                            <input id="direccion" type="text" placeholder="Ingrese direccion" required>
+                            <label for="telefono">Telefono: </label>
+                            <input id="telefono" type="number" placeholder="Ingrese telefono" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="productos-factura">
+                    <div class="titulos">
+                        <label for="id-producto">ID Producto</label>
+                        <label for="id">Producto</label>
+                        <label for="producto">Cantidad</label>
+                        <label for="precio">Precio</label>
+                    </div>
+                    <div class="desc">
+                        <input id="id-producto" type="text" placeholder="Ingrese id" required>
+                        <input id="producto" type="text" placeholder="Ingrese nombre" required>
+                        <input id="cantidad" type="number" placeholder="Ingrese cantidad" required>
+                        <input id="precio" type="number" placeholder="Ingrese precio" required>
+                    </div>
+                </div>
+                <button type="submit">Descargar</button>
+            </form>
+        </main>
+        <footer></footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" 
+            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" 
        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script>
-       let formulario = document.querySelector("form");
-       formulario.addEventListener("submit", (e) => {
-           e.preventDefault();
-           let clienteNombre = document.querySelector("#nombre").value;
-           let clienteDireccion = document.querySelector("#direccion").value;
-           let clienteTelefono = document.querySelector("#telefono").value;
-           let facturaId = document.querySelector("#id").value;
-           let facturaFecha = document.querySelector("#fecha").value;
-           let producto = document.querySelector("#producto").value;
-           let cantidad = document.querySelector("#cantidad").value;
-           let precio = document.querySelector("#precio").value;
-           html2pdf(formulario);
-       })
-   
-   </script>
-</body>
+        <script>
+            let formulario = document.querySelector("form");
+            formulario.addEventListener("submit", (e) => {
+                e.preventDefault();
+                html2pdf(formulario);
+            })
+        </script>
+    </body>
 </html>

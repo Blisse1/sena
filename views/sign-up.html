@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        span, input {
+            display: block;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
+        }
+        a {
+            color: white;
+        }
+        form {
+            color: white;
+            display: flex;
+            font-size: 2rem;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30%;
+            height: 100vh;
+            padding: 5px;
+        }
+        .inputs {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            font-size: 1.5rem;
+        }
+        .inputs input {
+            width: 100%;
+            border: none;
+            padding: 5px;
+            height: 5vh;
+        }
+        .titulos {
+            font-size: 2rem;
+        }
+        button {
+            width: 100%;
+            font-size: 1.1rem;
+            border: none;
+            padding: 5px;
+        }
+        form span:last-child, 
+        .small {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+   <main>
+        <form>
+            <div class="titulos">
+                <span><a href="../index.html">Jidoka</a></span>
+                <span class="small">Sign Up to Jidoka</span>
+            </div>
+            <div class="inputs">
+                <label for="nombre">Nombre: </label>
+                <input id="nombre" type="nombre" placeholder="Ingresa tu nombre">
+                <label for="apellido">Apellido: </label>
+                <input id="apellido" type="apellido" placeholder="Ingresa tu apellido">
+                <label for="email">Email: </label>
+                <input id="email" type="email" placeholder="Ingresa tu email">
+                <label for="password">Password: </label>
+                <input id="password" type="password" placeholder="Ingresa tu contraseña">
+                <button type="submit">Sign Up</button>
+            </div>
+            <span>Have an account? <a href="log-in.html" class="small">Sign In</a></span>
+        </form>
+   </main> 
+</body>
+</html>

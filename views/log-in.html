@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        span, input {
+            display: block;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
+        }
+        a {
+            color: white;
+        }
+        form {
+            color: white;
+            display: flex;
+            font-size: 2rem;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30%;
+            height: 100vh;
+            padding: 5px;
+        }
+        .inputs {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            font-size: 1.5rem;
+        }
+        .inputs input {
+            width: 100%;
+            border: none;
+            padding: 5px;
+            height: 5vh;
+        }
+        .titulos {
+            font-size: 2rem;
+        }
+        button {
+            width: 100%;
+            font-size: 1.1rem;
+            border: none;
+            padding: 5px;
+        }
+        form span:last-child, 
+        .small {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+   <main>
+        <form>
+            <div class="titulos">
+                <span><a href="../index.html">Jidoka</a></span>
+                <span class="small">Log In to Jidoka</span>
+            </div>
+            <div class="inputs">
+                <label for="email">Email: </label>
+                <input id="email" type="email" placeholder="Ingresa tu email">
+                <label for="password">Password: </label>
+                <input id="password" type="password" placeholder="Ingresa tu contraseña">
+                <button type="submit">Log In</button>
+            </div>
+            <span>Don't have an account? <a href="sign-up.html" class="small">Sign Up</a></span>
+        </form>
+   </main> 
+</body>
+</html>
