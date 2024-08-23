@@ -14,14 +14,16 @@ else
   set shortmess=aoO
 endif
 badd +15 ~/Documents/projects/jidoka-sena/database.sql
-badd +6 ~/Documents/projects/jidoka-sena/index.js
-badd +73 ~/Documents/projects/jidoka-sena/public/index.html
+badd +27 ~/Documents/projects/jidoka-sena/index.js
+badd +15 ~/Documents/projects/jidoka-sena/public/index.html
+badd +82 public/views/log-in.html
+badd +11 ~/Documents/projects/jidoka-sena/public/views/clientes.html
 argglobal
 %argdel
 $argadd oil:///home/bliss/Documents/projects/jidoka-sena/
 edit ~/Documents/projects/jidoka-sena/index.js
 argglobal
-balt ~/Documents/projects/jidoka-sena/database.sql
+balt ~/Documents/projects/jidoka-sena/public/views/clientes.html
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -32,12 +34,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 6 - ((5 * winheight(0) + 14) / 29)
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
-normal! 022|
+keepjumps 1
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -50,7 +52,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
