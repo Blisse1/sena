@@ -1,91 +1,76 @@
-CREATE DATABASE IF NOT EXISTS jidoka;
-USE jidoka;
+CREATE DATABASE IF NOT EXISTS sena;
+USE sena;
 
-CREATE TABLE IF NOT EXISTS Categoria (
-    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre_Categoria VARCHAR(100) NOT NULL
+CREATE TABLE clientes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    empresa VARCHAR(100),
+    telefono VARCHAR(15),
+    direccion VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS Cliente (
-    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre_Cliente VARCHAR(100) NOT NULL,
-    Empresa_Cliente VARCHAR(100) NOT NULL,
-    Ciudad_Cliente VARCHAR(100) NOT NULL,
-    Telefono_Cliente VARCHAR(15),
-    Fecha_Registro DATE NOT NULL
+CREATE TABLE categorias (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Producto (
-    ID_Producto INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre_Producto VARCHAR(100) NOT NULL,
-    Precio DECIMAL(10, 2) NOT NULL,
-    ID_Categoria INT,
-    FOREIGN KEY (ID_Categoria) REFERENCES Categoria(ID_Categoria)
+CREATE TABLE productos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    categoria_id INT,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    stock INT,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
-CREATE TABLE IF NOT EXISTS Factura (
-    ID_Factura INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre_Vendedor VARCHAR(100) NOT NULL,
-    Direccion_Empresa VARCHAR(255) NOT NULL,
-    Ciudad_Empresa VARCHAR(100) NOT NULL,
-    Telefono_Empresa VARCHAR(15),
-    Fecha DATE NOT NULL,
-    ID_Cliente INT,
-    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente)
+CREATE TABLE facturas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id INT,
+    total DECIMAL(10, 2) NOT NULL,
+    fecha DATE NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
-CREATE TABLE IF NOT EXISTS Detalle_Factura (
-    ID_Factura INT,
-    ID_Producto INT,
-    Cantidad INT NOT NULL,
-    Precio_Unitario DECIMAL(10, 2) NOT NULL,
-    Valor_Total DECIMAL(10, 2) AS (Cantidad * Precio_Unitario) STORED,
-    PRIMARY KEY (ID_Factura, ID_Producto),
-    FOREIGN KEY (ID_Factura) REFERENCES Factura(ID_Factura),
-    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+CREATE TABLE detalle_facturas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    factura_id INT,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (factura_id) REFERENCES facturas(id),
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
 
-INSERT INTO Categoria (Nombre_Categoria) VALUES 
-('Electronica'),
-('Ropa'),
-('Alimentos'),
-('Muebles'),
-('Libros');
+INSERT INTO clientes (nombre, apellido, empresa, telefono, direccion) VALUES
+('Juan', 'Pérez', 'Tech Solutions', '555-1234', 'Av. Libertador 1234'),
+('Ana', 'Martínez', 'Marketing SA', '555-5678', 'Calle 9 de Julio 876'),
+('Luis', 'Gómez', 'Construcciones Gómez', '555-8765', 'Calle Corrientes 2345');
 
-INSERT INTO Cliente (Nombre_Cliente, Empresa_Cliente, Ciudad_Cliente, Telefono_Cliente, Fecha_Registro) VALUES 
-('Juan', 'Empresa 1', 'Medellin', '123456789', '2024-01-10'),
-('Ana', 'Empresa 2', 'Bogota', '987654321', '2024-02-15'),
-('Carlos', 'Empresa 3', 'Cali', '111222', '2024-03-20'),
-('Lucia', 'Empresa 4', 'Medellin', '4333444', '2024-04-25'),
-('Mario', 'Empresa 5', 'Cartagena', '99911122', '2024-05-30');
+INSERT INTO categorias (nombre) VALUES
+('Electrónica'),
+('Herramientas'),
+('Mobiliario');
 
-INSERT INTO Producto (Nombre_Producto, Precio, ID_Categoria) VALUES 
-('Televisor', 500.00, 1), 
-('Camiseta', 20.00, 2),
-('Pan', 1.50, 3),
-('Mesa', 150.00, 4),
-('Libro de Programacion', 40.00, 5);
+INSERT INTO productos (nombre, categoria_id, precio_unitario, stock) VALUES
+('Laptop', 1, 1200.00, 50),
+('Taladro', 2, 150.00, 30),
+('Escritorio', 3, 225.00, 20),
+('Ratón', 1, 25.00, 100),
+('Teclado', 1, 45.00, 80);
 
-INSERT INTO Factura (Nombre_Vendedor, Direccion_Empresa, Ciudad_Empresa, Telefono_Empresa, Fecha, ID_Cliente) VALUES 
-('Luis', 'Calle 50 #45-30', 'Medellin', '16161616', '2024-07-01', 1),
-('Marta', 'Carrera 7 #32-15', 'Bogota', '12121212', '2024-07-02', 2),
-('Pedro', 'Calle 10 #20-30', 'Cali', '444555', '2024-07-03', 3),
-('Lorena', 'Carrera 43 #54-90', 'Barranquilla', '161111', '2024-07-04', 4),
-('Raul', 'Calle 21 #14-50', 'Cartagena', '1234135', '2024-07-05', 5);
+INSERT INTO facturas (cliente_id, total, fecha) VALUES
+(1, 1250.00, '2024-08-22'),
+(2, 300.00, '2024-08-22'),
+(3, 450.00, '2024-08-22');
 
-INSERT INTO Detalle_Factura (ID_Factura, ID_Producto, Cantidad, Precio_Unitario) VALUES 
-(1, 1, 1, 500.00),
-(2, 2, 3, 20.00),
-(3, 3, 10, 1.50),
-(4, 4, 1, 150.00),
-(5, 5, 2, 40.00); 
+INSERT INTO detalle_facturas (factura_id, producto_id, cantidad) VALUES
+(1, 1, 1),
+(1, 4, 2),
+(1, 5, 1), 
+(2, 2, 2),  
+(3, 3, 2);   
 
-SELECT * FROM Categoria;
-
-SELECT * FROM Cliente WHERE Ciudad_Cliente = 'Medellin';
-
-SELECT * FROM Producto WHERE ID_Categoria = 1;
-
-SELECT * FROM Factura WHERE MONTH(Fecha) = 7 AND YEAR(Fecha) = 2024;
-
-SELECT * FROM Detalle_Factura WHERE Cantidad > 1;
+-- Actualizar el total de la factura 1 para reflejar la suma de todos los productos
+UPDATE facturas
+SET total = (SELECT SUM(valor_total) FROM detalle_facturas WHERE factura_id = 1)
+WHERE id = 1;
