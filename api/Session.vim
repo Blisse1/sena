@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Documents/projects/jidoka-sena
+cd ~/Documents/projects/jidoka-sena/api
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -13,17 +13,19 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +15 ~/Documents/projects/jidoka-sena/database.sql
-badd +1 ~/Documents/projects/jidoka-sena/index.js
-badd +15 ~/Documents/projects/jidoka-sena/public/index.html
-badd +82 public/views/log-in.html
-badd +21 ~/Documents/projects/jidoka-sena/public/views/clientes.html
+badd +70 ~/Documents/projects/jidoka-sena/api/index.js
+badd +34 combined.log
+badd +1 app-error.log
+badd +1 ~/Documents/projects/jidoka-sena/api/exception.log
+badd +1 ~/Documents/projects/jidoka-sena/api/exceptions.log
+badd +1 ~/Documents/projects/jidoka-sena/api/rejections.log
+badd +1 app-info.log
 argglobal
 %argdel
-$argadd oil:///home/bliss/Documents/projects/jidoka-sena/
-edit ~/Documents/projects/jidoka-sena/index.js
+$argadd ./
+edit ~/Documents/projects/jidoka-sena/api/index.js
 argglobal
-balt ~/Documents/projects/jidoka-sena/public/views/clientes.html
+balt app-error.log
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -52,7 +54,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
