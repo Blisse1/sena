@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <style>
+        label,
+        button {
+            display: block;
+        }
+        input {
+            margin-bottom: 5px;
+        }
+        fieldset {
+            width: 25%;
+        }
+        body {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+   <form id="crearProducto">
+       <fieldset>
+           <legend>Crea un producto: </legend>
+           <label for="nombre">Nombre: </label> 
+           <input type="text" id="nombre" name="nombre" required>
+           <label for="categoria-id">Categoría ID: </label> 
+           <input type="text" id="categoriaId" name="categoriaId" required>
+           <label for="precio-unitario">Precio Unitario: </label> 
+           <input type="text" id="precioUnitario" name="precioUnitario" required>
+           <label for="stock">Stock: </label> 
+           <input type="text" id="stock" name="stock" required>
+           <button type="submit">Crear nuevo producto</button>
+       </fieldset>
+   </form> 
+   <form id="actualizarProducto">
+       <fieldset>
+           <legend>Actualiza un producto: </legend>
+           <label for="id">Id del Producto: </label> 
+           <input type="text" id="id" name="id">
+           <label for="nombreUpdated">Nuevo Nombre: </label> 
+           <input type="text" id="nombreUpdated" name="nombre">
+           <label for="categoriaUpdated">Nueva Categoría ID: </label> 
+           <input type="text" id="categoriaUpdated" name="categoriaId">
+           <label for="precioUnitarioUpdated">Nuevo Precio Unitario: </label> 
+           <input type="text" id="precioUnitarioUpdated" name="precioUnitario">
+           <label for="stockUpdated">Nuevo Stock: </label> 
+           <input type="text" id="stockUpdated" name="stock">
+           <button type="submit">Actualizar producto</button>
+       </fieldset>
+   </form> 
+   <form id="eliminarProducto">
+       <fieldset>
+           <legend>Eliminar un producto: </legend>
+           <label for="idEliminar">Id del Producto: </label> 
+           <input type="text" id="idEliminar" name="id">
+           <button type="submit">Eliminar producto</button>
+       </fieldset>
+   </form> 
+   <script>
+       document.querySelector("#crearProducto").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const nombre = document.querySelector("#nombre").value;
+           const categoriaId = document.querySelector("#categoriaId").value;
+           const precioUnitario = document.querySelector("#precioUnitario").value;
+           const stock = document.querySelector("#stock").value;
+           const crearProducto = await fetch("http://localhost:5000/productos", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+                   categoriaId,
+                   precioUnitario,
+                   stock,
+               })
+           });
+           let response = await crearProducto.json();
+           console.log(response);
+       });
+       document.querySelector("#actualizarProducto").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#id").value;
+           const nombre = document.querySelector("#nombreUpdated").value;
+           const categoriaId = document.querySelector("#categoriaUpdated").value;
+           const precioUnitario = document.querySelector("#precioUnitarioUpdated").value;
+           const stock = document.querySelector("#stockUpdated").value;
+           const actualizarProducto = await fetch(`http://localhost:5000/productos/${id}`, {
+               method: "PATCH",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+                   categoriaId,
+                   precioUnitario,
+                   stock,
+               })
+           });
+           let response = await actualizarProducto.json();
+           console.log(response);
+       });
+       document.querySelector("#eliminarProducto").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#idEliminar").value;
+           const eliminarProducto = await fetch(`http://localhost:5000/productos/${id}`, {
+               method: "DELETE",
+           });
+           let response = await eliminarProducto.json();
+           console.log(response);
+       });
+   </script>
+</body>
+</html>

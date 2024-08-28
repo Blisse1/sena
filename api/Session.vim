@@ -13,19 +13,30 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +70 ~/Documents/projects/jidoka-sena/api/index.js
-badd +34 combined.log
-badd +1 app-error.log
+badd +15 ~/Documents/projects/jidoka-sena/api/index.js
+badd +166 combined.log
+badd +27 app-error.log
 badd +1 ~/Documents/projects/jidoka-sena/api/exception.log
 badd +1 ~/Documents/projects/jidoka-sena/api/exceptions.log
 badd +1 ~/Documents/projects/jidoka-sena/api/rejections.log
 badd +1 app-info.log
+badd +15 routes/clientes.js
+badd +47 routes/cliente.js
+badd +78 ~/Documents/projects/jidoka-sena/api/routes/clientes/clientes.js
+badd +1 db/connection.js
+badd +15 ~/Documents/projects/jidoka-sena/api/routes/categorias/categoria.js
+badd +15 ~/Documents/projects/jidoka-sena/api/routes/categorias/categorias.js
+badd +21 routes/productos/producto.js
+badd +15 ~/Documents/projects/jidoka-sena/api/routes/productos/productos.js
+badd +5 ~/Documents/projects/jidoka-sena/api/routes/producto.js
+badd +72 ~/Documents/projects/jidoka-sena/api/routes/productos.js
+badd +6 ~/Documents/projects/jidoka-sena/api/routes/categoria.js
+badd +42 ~/Documents/projects/jidoka-sena/api/routes/categorias.js
 argglobal
 %argdel
-$argadd ./
+$argadd oil:///home/bliss/Documents/projects/jidoka-sena/api/
 edit ~/Documents/projects/jidoka-sena/api/index.js
 argglobal
-balt app-error.log
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}

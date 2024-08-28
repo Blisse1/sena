@@ -6,10 +6,10 @@ router.route("/")
     .get(async (req, res) => {
         try {
             const [results, fields] = await connection.query(
-                'SELECT * FROM `clientes`'
+                'SELECT * FROM `categorias`'
             );
             res.status(200).json({
-                clientes: results,
+                categorias: results,
             });
         } catch (err) {
             res.status(500).json({
@@ -19,11 +19,11 @@ router.route("/")
     })
     .post(async (req, res) => {
         try {
-            const {nombre, apellido, empresa, telefono, direccion} = req.body;
-            const sql = `INSERT into clientes (nombre, apellido, empresa, telefono, direccion) VALUES (?, ?, ?, ?, ?)`;
-            await connection.query(sql, [nombre, apellido, empresa, telefono, direccion]);
+            const { nombre } = req.body;
+            const sql = `INSERT into categorias ( nombre ) VALUES (?)`;
+            await connection.query(sql, [ nombre ]);
             return res.status(202).json({
-                message: "Cliente created",
+                message: "Categoria created",
             }); 
         } catch (err) {
             res.status(500).json({
@@ -37,10 +37,10 @@ router.route("/:id")
         try {
             const {id} = req.params;
             const data = await connection.query(
-                `SELECT * FROM clientes WHERE id = ?`, [id]
+                `SELECT * FROM categorias WHERE id = ?`, [id]
             );
             res.status(200).json({
-                cliente: data[0][0]
+                categeoria: data[0][0]
             })
             res.send(results);
         } catch (err) {
@@ -51,14 +51,14 @@ router.route("/:id")
     })
     .patch(async (req, res) => {
         try {
-            const {id} = req.params;
-            const {nombre, apellido, empresa, telefono, direccion} = req.body;
+            const { id } = req.params;
+            const { nombre } = req.body;
             await connection.query(
-                `UPDATE clientes SET nombre = ?, apellido = ?, empresa = ?, telefono = ?, direccion= ? WHERE id = ?`, 
-                [nombre, apellido, empresa, telefono, direccion, id]
+                `UPDATE categorias SET nombre = ? WHERE id = ?`, 
+                [nombre, id]
             );
             res.status(200).json({
-                message: "Cliente Actualizado"
+                message: "Categeoria Actualizada"
             })
         } catch (err) {
             res.status(500).json({
@@ -70,10 +70,11 @@ router.route("/:id")
         try {
             const {id} = req.params;
             await connection.query(
-                `DELETE FROM clientes WHERE id = ?`, [id]
+                `DELETE FROM categorias WHERE id = ?`, 
+                [id]
             );
             res.status(200).json({
-                message: "Cliente Eliminado"
+                message: "Categoria Eliminada"
             })
         } catch (err) {
             res.status(500).json({

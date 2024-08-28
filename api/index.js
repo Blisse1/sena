@@ -2,11 +2,16 @@ const express = require("express");
 const dotenv = require("dotenv");
 const winston = require("winston");
 const morgan = require("morgan");
-const clientes = require("./routes/clientes");
 const cors = require("cors");
-dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
+
+dotenv.config();
+
+// routes
+const clientes = require("./routes/clientes");
+const categorias = require("./routes/categorias");
+const productos = require("./routes/productos");
 
 const corsOptions = {
     origin: "http://localhost:3000",
@@ -67,26 +72,9 @@ const morganMiddleware = morgan(
 );
 
 app.use(morganMiddleware);
-
 app.use("/clientes", clientes);
-app.route("/cliente/:id")
-    .get(async (req, res) => {
-        try {
-            const {id} = req.params;
-            const data = await connection.query(
-                `SELECT * FROM clientes WHERE id = ?`, [id]
-            );
-            console.log(data.length)
-            res.status(200).json({
-                cliente: data[0][0]
-            })
-            res.send(results);
-        } catch (err) {
-            res.status(500).json({
-                message: err,
-            });
-        }
-    })
+app.use("/categorias", categorias);
+app.use("/productos", productos);
 
 app.listen(port, () => {
     console.log(`Conexion exitosa en el puerto ${port}`);

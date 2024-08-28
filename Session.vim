@@ -14,16 +14,21 @@ else
   set shortmess=aoO
 endif
 badd +15 ~/Documents/projects/jidoka-sena/database.sql
-badd +1 ~/Documents/projects/jidoka-sena/index.js
-badd +15 ~/Documents/projects/jidoka-sena/public/index.html
-badd +82 public/views/log-in.html
-badd +21 ~/Documents/projects/jidoka-sena/public/views/clientes.html
+badd +20 ~/Documents/projects/jidoka-sena/index.js
+badd +14 ~/Documents/projects/jidoka-sena/public/index.html
+badd +6 package.json
+badd +1 ~/Documents/projects/jidoka-sena/views/log-in.html
+badd +68 ~/Documents/projects/jidoka-sena/views/clientes.html
+badd +8 ~/Documents/projects/jidoka-sena/views/header.html
+badd +18 public/styles/index-styles.css
+badd +34 ~/Documents/projects/jidoka-sena/views/categorias.html
+badd +71 ~/Documents/projects/jidoka-sena/views/productos.html
 argglobal
 %argdel
 $argadd oil:///home/bliss/Documents/projects/jidoka-sena/
-edit ~/Documents/projects/jidoka-sena/index.js
+edit public/styles/index-styles.css
 argglobal
-balt ~/Documents/projects/jidoka-sena/public/views/clientes.html
+balt ~/Documents/projects/jidoka-sena/public/index.html
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -52,7 +57,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <style>
+        label,
+        button {
+            display: block;
+        }
+        input {
+            margin-bottom: 5px;
+        }
+        fieldset {
+            width: 25%;
+        }
+        body {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+   <form id="crearCategoria">
+       <fieldset>
+           <legend>Crea una categoria: </legend>
+           <label for="nombre">Nombre: </label> 
+           <input type="text" id="nombre" name="nombre" required>
+           <button type="submit">Crear nueva categoria</button>
+       </fieldset>
+   </form> 
+   <form id="actualizarCategoria">
+       <fieldset>
+           <legend>Actualizar una categoria: </legend>
+           <label for="id">Id de la Categoria: </label> 
+           <input type="text" id="id" name="id">
+           <label for="nombreActualizado">Nuevo Nombre: </label> 
+           <input type="text" id="nombreActualizado" name="nombre">
+           <button type="submit">Actualizar Categoria</button>
+       </fieldset>
+   </form> 
+   <form id="eliminarCategoria">
+       <fieldset>
+           <legend>Eliminar una categoria: </legend>
+           <label for="idEliminar">Id Categoria: </label> 
+           <input type="text" id="idEliminar" name="id">
+           <button type="submit">Eliminar Categoria</button>
+       </fieldset>
+   </form> 
+   <script>
+       document.querySelector("#crearCategoria").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const nombre = document.querySelector("#nombre").value;
+           const crearCategoria = await fetch("http://localhost:5000/categorias", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+               })
+           });
+           let response = await crearCategoria.json();
+           console.log(response)
+       })
+       document.querySelector("#actualizarCategoria").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#id").value;
+           const nombre = document.querySelector("#nombreActualizado").value;
+           const actualizarCategoria = await fetch(`http://localhost:5000/categorias/${id}`, {
+               method: "PATCH",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+               })
+           });
+           let response = await actualizarCategoria.json();
+           console.log(response)
+       })
+       document.querySelector("#eliminarCategoria").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#idEliminar").value;
+           const eliminarCategoria = await fetch(`http://localhost:5000/categorias/${id}`, {
+               method: "DELETE",
+           });
+           let response = await eliminarCategoria.json();
+           console.log(response)
+       })
+   </script>
+</body>
+</html>

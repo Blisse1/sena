@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <style>
+        label,
+        button {
+            display: block;
+        }
+        input {
+            margin-bottom: 5px;
+        }
+        fieldset {
+            width: 25%;
+        }
+        body {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+   <form id="crearCliente">
+       <fieldset>
+           <legend>Crea un cliente: </legend>
+           <label for="nombre">Nombre: </label> 
+           <input type="text" id="nombre" name="nombre" required>
+           <label for="apellido">Apellido: </label> 
+           <input type="text" id="apellido" name="apellido" required>
+           <label for="empresa">Empresa: </label> 
+           <input type="text" id="empresa" name="empresa" required>
+           <label for="direccion">Direccion: </label> 
+           <input type="text" id="direccion" name="direccion" required>
+           <label for="telefono">Telefono: </label> 
+           <input type="text" id="telefono" name="telefono" required>
+           <button type="submit">Crear nuevo cliente</button>
+       </fieldset>
+   </form> 
+   <form id="actualizarCliente">
+       <fieldset>
+           <legend>Actualiza un cliente: </legend>
+           <label for="id">Id del Cliente: </label> 
+           <input type="text" id="id" name="id">
+           <label for="nombreUpdated">Nuevo Nombre: </label> 
+           <input type="text" id="nombreUpdated" name="nombre">
+           <label for="apellidoUpdated">Nuevo Apellido: </label> 
+           <input type="text" id="apellidoUpdated" name="apellido">
+           <label for="empresaUpdated">Nueva Empresa: </label> 
+           <input type="text" id="empresaUpdated" name="empresaUpdated">
+           <label for="telefonoUpdated">Nuevo Telefono: </label> 
+           <input type="text" id="telefonoUpdated" name="telefonoUpdated">
+           <label for="direccionUpdated">Nueva Direccion: </label> 
+           <input type="text" id="direccionUpdated" name="direccionUpdated">
+           <button type="submit">Actualizar cliente</button>
+       </fieldset>
+   </form> 
+   <form id="eliminarCliente">
+       <fieldset>
+           <legend>Eliminar un cliente: </legend>
+           <label for="eliminar">Id del Cliente: </label> 
+           <input type="text" id="eliminar" name="idEliminar">
+           <button type="submit">Eliminar cliente</button>
+       </fieldset>
+   </form> 
+   <script>
+       document.querySelector("#crearCliente").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const nombre = document.querySelector("#nombre").value;
+           const apellido = document.querySelector("#apellido").value;
+           const empresa = document.querySelector("#empresa").value;
+           const direccion = document.querySelector("#direccion").value;
+           const telefono = document.querySelector("#telefono").value;
+           const crearCliente = await fetch("http://localhost:5000/clientes", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+                   apellido,
+                   empresa,
+                   telefono,
+                   direccion,
+               })
+           });
+           let response = await crearCliente.json();
+           console.log(response)
+       })
+       document.querySelector("#actualizarCliente").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#id").value;
+           const nombre = document.querySelector("#nombreUpdated").value;
+           const apellido = document.querySelector("#apellidoUpdated").value;
+           const empresa = document.querySelector("#empresaUpdated").value;
+           const direccion = document.querySelector("#direccionUpdated").value;
+           const telefono = document.querySelector("#telefonoUpdated").value;
+           const actualizarCliente = await fetch(`http://localhost:5000/clientes/${id}`, {
+               method: "PATCH",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   nombre,
+                   apellido,
+                   empresa,
+                   telefono,
+                   direccion,
+               })
+           });
+           let response = await actualizarCliente.json();
+           console.log(response)
+       })
+       document.querySelector("#eliminarCliente").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const id = document.querySelector("#eliminar").value;
+           const eliminarCliente = await fetch(`http://localhost:5000/clientes/${id}`, {
+               method: "DELETE",
+           });
+           let response = await eliminarCliente.json();
+           console.log(response)
+       })
+   </script>
+</body>
+</html>
