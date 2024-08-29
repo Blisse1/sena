@@ -12,6 +12,8 @@ dotenv.config();
 const clientes = require("./routes/clientes");
 const categorias = require("./routes/categorias");
 const productos = require("./routes/productos");
+const facturas = require("./routes/facturas");
+const detalleFacturas = require("./routes/detalle-facturas");
 
 const corsOptions = {
     origin: "http://localhost:3000",
@@ -75,6 +77,8 @@ app.use(morganMiddleware);
 app.use("/clientes", clientes);
 app.use("/categorias", categorias);
 app.use("/productos", productos);
+app.use("/facturas", facturas);
+app.use("/detalle-facturas", detalleFacturas);
 
 app.listen(port, () => {
     console.log(`Conexion exitosa en el puerto ${port}`);

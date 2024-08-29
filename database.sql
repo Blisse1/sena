@@ -69,8 +69,3 @@ INSERT INTO detalle_facturas (factura_id, producto_id, cantidad) VALUES
 (1, 5, 1), 
 (2, 2, 2),  
 (3, 3, 2);   
-
--- Actualizar el total de la factura 1 para reflejar la suma de todos los productos
-UPDATE facturas
-SET total = (SELECT SUM(valor_total) FROM detalle_facturas WHERE factura_id = 1)
-WHERE id = 1;

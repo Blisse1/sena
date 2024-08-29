@@ -20,6 +20,10 @@ app.get("/productos", (req, res) => {
     res.render("productos");
 })
 
+app.get("/facturas", (req, res) => {
+    res.render("facturas");
+})
+
 app.listen(port, () => {
     console.log(`Conexion exitosa en el puerto ${port}`);
 })

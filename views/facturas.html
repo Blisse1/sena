@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturas</title>
+    <style>
+        label,
+        button {
+            display: block;
+        }
+        input {
+            margin-bottom: 5px;
+        }
+        fieldset {
+            width: 25%;
+        }
+        body {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+   <form id="crearFactura">
+       <fieldset>
+           <legend>Crea un factura: </legend>
+           <label for="id">Factura Id: </label> 
+           <input type="number" id="facturaId" name="facturaId" required>
+           <label for="id">Cliente Id: </label> 
+           <input type="number" id="clienteId" name="clienteId" required>
+           <label for="id">Producto Id: </label> 
+           <input type="number" id="productoId" name="productoId" required>
+           <label for="id">Fecha: </label> 
+           <input type="date" id="fecha" name="fecha" required>
+           <label for="precioUnitario">Precio Unitario: </label> 
+           <input type="text" id="precioUnitario" name="precioUnitario" disabled>
+           <label for="productoNombre">Producto: </label> 
+           <input type="text" id="productoNombre" name="productoNombre" disabled>
+           <label for="clienteNombre">Cliente: </label> 
+           <input type="text" id="clienteNombre" name="clienteNombre" disabled>
+           <label for="cantidad">Cantidad: </label> 
+           <input type="text" id="cantidad" name="cantidad">
+           <label for="total">Total: </label> 
+           <input type="text" id="total" name="total">
+           <button type="submit">Crear nueva factura</button>
+       </fieldset>
+   </form> 
+   <script>
+       document.querySelector("#crearFactura").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const productoId = document.querySelector("#productoId").value;
+
+           const crearFactura = await fetch(`http://localhost:5000/productos/${productoId}`);
+           let response = await crearFactura.json();
+           console.log(response.producto.nombre)
+       })
+
+       document.querySelector("#productoId").addEventListener("keydown", async(e) =>{
+           const crearFactura = await fetch(`http://localhost:5000/productos/${e.key}`);
+           let response = await crearFactura.json();
+           document.querySelector("#precioUnitario").setAttribute("value", response.producto.precio_unitario);
+           document.querySelector("#productoNombre").setAttribute("value", response.producto.nombre);
+       })
+       document.querySelector("#clienteId").addEventListener("keydown", async(e) =>{
+           const crearFactura = await fetch(`http://localhost:5000/clientes/${e.key}`);
+           let response = await crearFactura.json();
+           document.querySelector("#clienteNombre").setAttribute("value", response.cliente.nombre);
+       })
+
+       document.querySelector("#crearFactura").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const clienteId = document.querySelector("#clienteId").value;
+           const facturaId = document.querySelector("#facturaId").value;
+           const productoId = document.querySelector("#productoId").value;
+           const cantidad = document.querySelector("#cantidad").value;
+           const total = document.querySelector("#total").value;
+           const fecha = document.querySelector("#fecha").value;
+           const crearCliente = await fetch("http://localhost:5000/facturas", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   clienteId,
+                   total,
+                   fecha,
+               })
+           });
+           let response = await crearCliente.json();
+
+           const crearDetalle = await fetch("http://localhost:5000/detalle-facturas", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                   facturaId,
+                   productoId,
+                   cantidad,
+               })
+           });
+           let detalleResponse = await crearDetalle.json();
+           console.log(response, detalleResponse);
+       })
+   </script>
+</body>
+</html>

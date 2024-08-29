@@ -17,14 +17,16 @@ nav span {
 }
 nav > ul {
     margin: 0;
-    border: 1px solid black;
     box-sizing: border-box;
     padding: 5px;
     display: flex; 
-    width: 35%;
+    width: 50%;
     font-size: 1.5rem;
     justify-content: space-between;
     list-style-type: none;
+}
+a:visited {
+    color: blueviolet;
 }
 input {
     margin-bottom: 10px;
