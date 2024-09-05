@@ -13,7 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +15 ~/Documents/projects/jidoka-sena/database.sql
+badd +1 ~/Documents/projects/jidoka-sena/database.sql
 badd +24 ~/Documents/projects/jidoka-sena/index.js
 badd +17 ~/Documents/projects/jidoka-sena/public/index.html
 badd +15 package.json
@@ -24,29 +24,10 @@ badd +20 public/styles/index-styles.css
 badd +34 ~/Documents/projects/jidoka-sena/views/categorias.html
 badd +71 ~/Documents/projects/jidoka-sena/views/productos.html
 badd +83 ~/Documents/projects/jidoka-sena/views/facturas.html
-badd +0 oil:///home/bliss/Documents/projects/jidoka-sena/
+badd +1 README.md
 argglobal
 %argdel
 $argadd oil:///home/bliss/Documents/projects/jidoka-sena/
-edit oil:///home/bliss/Documents/projects/jidoka-sena/
-argglobal
-balt ~/Documents/projects/jidoka-sena/views/facturas.html
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 14) / 29)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

@@ -13,7 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +63 ~/Documents/projects/jidoka-sena/api/index.js
+badd +54 ~/Documents/projects/jidoka-sena/api/index.js
 badd +1 combined.log
 badd +27 app-error.log
 badd +1 ~/Documents/projects/jidoka-sena/api/exception.log
@@ -36,12 +36,14 @@ badd +41 ~/Documents/projects/jidoka-sena/api/routes/facturas.js
 badd +43 routes/detalle-facturas.js
 badd +1 package.json
 badd +1 ~/Documents/projects/jidoka-sena/api/bun.lockb
+badd +1 README.md
+badd +2 ~/Documents/projects/jidoka-sena/README.md
 argglobal
 %argdel
 $argadd oil:///home/bliss/Documents/projects/jidoka-sena/api/
-edit ~/Documents/projects/jidoka-sena/api/index.js
+edit ~/Documents/projects/jidoka-sena/README.md
 argglobal
-balt app-error.log
+balt README.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -52,12 +54,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 54 - ((14 * winheight(0) + 14) / 29)
+let s:l = 2 - ((1 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 54
-normal! 0
+keepjumps 2
+normal! 029|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
