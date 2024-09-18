@@ -17,53 +17,59 @@ CREATE TABLE categorias (
 
 CREATE TABLE productos (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    estado BOOL,
     nombre VARCHAR(100) NOT NULL,
     categoria_id INT,
     precio_unitario DECIMAL(10, 2) NOT NULL,
     stock INT,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE facturas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     cliente_id INT,
     total DECIMAL(10, 2) NOT NULL,
-    fecha DATE NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+    -- AQUI QUEDE, EN COMO TRATAR UN ATRIBUTO CALCULADO
+    FECHA DATE NOT NULL,
+    FOREIGN KEY (CLIENTE_ID) REFERENCES CLIENTES(ID)
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE detalle_facturas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    factura_id INT,
-    producto_id INT,
-    cantidad INT NOT NULL,
-    FOREIGN KEY (factura_id) REFERENCES facturas(id),
-    FOREIGN KEY (producto_id) REFERENCES productos(id)
+CREATE TABLE DETALLE_FACTURAS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    FACTURA_ID INT,
+    PRODUCTO_ID INT,
+    CANTIDAD INT NOT NULL,
+    FOREIGN KEY (FACTURA_ID) REFERENCES FACTURAS(ID),
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (PRODUCTO_ID) REFERENCES PRODUCTOS(ID)
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-INSERT INTO clientes (nombre, apellido, empresa, telefono, direccion) VALUES
-('Juan', 'Pérez', 'Tech Solutions', '555-1234', 'Av. Libertador 1234'),
-('Ana', 'Martínez', 'Marketing SA', '555-5678', 'Calle 9 de Julio 876'),
-('Luis', 'Gómez', 'Construcciones Gómez', '555-8765', 'Calle Corrientes 2345');
+INSERT INTO CLIENTES (NOMBRE, APELLIDO, EMPRESA, TELEFONO, DIRECCION) VALUES
+('JUAN', 'PÉREZ', 'TECH SOLUTIONS', '555-1234', 'AV. LIBERTADOR 1234'),
+('ANA', 'MARTÍNEZ', 'MARKETING SA', '555-5678', 'CALLE 9 DE JULIO 876'),
+('LUIS', 'GÓMEZ', 'CONSTRUCCIONES GÓMEZ', '555-8765', 'CALLE CORRIENTES 2345');
 
-INSERT INTO categorias (nombre) VALUES
-('Electrónica'),
-('Herramientas'),
-('Mobiliario');
+INSERT INTO CATEGORIAS (NOMBRE) VALUES
+('ELECTRÓNICA'),
+('HERRAMIENTAS'),
+('MOBILIARIO');
 
-INSERT INTO productos (nombre, categoria_id, precio_unitario, stock) VALUES
-('Laptop', 1, 1200.00, 50),
-('Taladro', 2, 150.00, 30),
-('Escritorio', 3, 225.00, 20),
-('Ratón', 1, 25.00, 100),
-('Teclado', 1, 45.00, 80);
+INSERT INTO PRODUCTOS (NOMBRE, CATEGORIA_ID, PRECIO_UNITARIO, STOCK) VALUES
+('LAPTOP', 1, 1200.00, 50),
+('TALADRO', 2, 150.00, 30),
+('ESCRITORIO', 3, 225.00, 20),
+('RATÓN', 1, 25.00, 100),
+('TECLADO', 1, 45.00, 80);
 
-INSERT INTO facturas (cliente_id, total, fecha) VALUES
+INSERT INTO FACTURAS (CLIENTE_ID, TOTAL, FECHA) VALUES
 (1, 1250.00, '2024-08-22'),
 (2, 300.00, '2024-08-22'),
 (3, 450.00, '2024-08-22');
 
-INSERT INTO detalle_facturas (factura_id, producto_id, cantidad) VALUES
+INSERT INTO DETALLE_FACTURAS (FACTURA_ID, PRODUCTO_ID, CANTIDAD) VALUES
 (1, 1, 1),
 (1, 4, 2),
 (1, 5, 1), 

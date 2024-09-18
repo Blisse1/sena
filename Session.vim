@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Documents/projects/jidoka-sena
+cd ~/Documents/projects/unfinished/jidoka-sena
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -13,21 +13,30 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/Documents/projects/jidoka-sena/database.sql
-badd +24 ~/Documents/projects/jidoka-sena/index.js
-badd +17 ~/Documents/projects/jidoka-sena/public/index.html
-badd +15 package.json
-badd +1 ~/Documents/projects/jidoka-sena/views/log-in.html
-badd +114 ~/Documents/projects/jidoka-sena/views/clientes.html
-badd +8 ~/Documents/projects/jidoka-sena/views/header.html
-badd +20 public/styles/index-styles.css
-badd +34 ~/Documents/projects/jidoka-sena/views/categorias.html
-badd +71 ~/Documents/projects/jidoka-sena/views/productos.html
-badd +83 ~/Documents/projects/jidoka-sena/views/facturas.html
-badd +1 README.md
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/index.js
+badd +0 database.sql
 argglobal
 %argdel
-$argadd oil:///home/bliss/Documents/projects/jidoka-sena/
+$argadd ./
+edit database.sql
+argglobal
+balt ~/Documents/projects/unfinished/jidoka-sena/index.js
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

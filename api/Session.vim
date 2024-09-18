@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Documents/projects/jidoka-sena/api
+cd ~/Documents/projects/unfinished/jidoka-sena/api
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -13,53 +13,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +54 ~/Documents/projects/jidoka-sena/api/index.js
-badd +1 combined.log
-badd +27 app-error.log
-badd +1 ~/Documents/projects/jidoka-sena/api/exception.log
-badd +1 ~/Documents/projects/jidoka-sena/api/exceptions.log
-badd +1 ~/Documents/projects/jidoka-sena/api/rejections.log
-badd +1 app-info.log
-badd +1 routes/clientes.js
-badd +47 routes/cliente.js
-badd +78 ~/Documents/projects/jidoka-sena/api/routes/clientes/clientes.js
-badd +1 db/connection.js
-badd +15 ~/Documents/projects/jidoka-sena/api/routes/categorias/categoria.js
-badd +15 ~/Documents/projects/jidoka-sena/api/routes/categorias/categorias.js
-badd +21 routes/productos/producto.js
-badd +15 ~/Documents/projects/jidoka-sena/api/routes/productos/productos.js
-badd +5 ~/Documents/projects/jidoka-sena/api/routes/producto.js
-badd +72 ~/Documents/projects/jidoka-sena/api/routes/productos.js
-badd +6 ~/Documents/projects/jidoka-sena/api/routes/categoria.js
-badd +15 ~/Documents/projects/jidoka-sena/api/routes/categorias.js
-badd +41 ~/Documents/projects/jidoka-sena/api/routes/facturas.js
-badd +43 routes/detalle-facturas.js
-badd +1 package.json
-badd +1 ~/Documents/projects/jidoka-sena/api/bun.lockb
-badd +1 README.md
-badd +2 ~/Documents/projects/jidoka-sena/README.md
+badd +81 index.js
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/.env
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/package.json
 argglobal
 %argdel
-$argadd oil:///home/bliss/Documents/projects/jidoka-sena/api/
-edit ~/Documents/projects/jidoka-sena/README.md
-argglobal
-balt README.md
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 14) / 29)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 2
-normal! 029|
+$argadd .
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

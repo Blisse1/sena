@@ -3,10 +3,13 @@
   "module": "index.js",
   "type": "module",
   "scripts": {
-    "hot-reload": "bun --hot run index.js"
+    "client": "bun --hot index.js",
+    "server": "cd api && bun --hot index.js",
+    "dev": "concurrently \"bun run client\" \"bun run server\"",
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "concurrently": "^9.0.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
