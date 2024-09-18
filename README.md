@@ -1,2 +1,2 @@
 ## Database Schema
-![](/assets/final-sena-db.png)
+Not available yet due to new changes
