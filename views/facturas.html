@@ -37,69 +37,12 @@
            <label for="clienteNombre">Cliente: </label> 
            <input type="text" id="clienteNombre" name="clienteNombre" disabled>
            <label for="cantidad">Cantidad: </label> 
-           <input type="text" id="cantidad" name="cantidad">
+           <input type="number" id="cantidad" name="cantidad">
            <label for="total">Total: </label> 
-           <input type="text" id="total" name="total">
+           <input type="text" id="total" name="total" disabled>
            <button type="submit">Crear nueva factura</button>
        </fieldset>
    </form> 
-   <script>
-       document.querySelector("#crearFactura").addEventListener("submit", async (e) => {
-           e.preventDefault();
-           const productoId = document.querySelector("#productoId").value;
-
-           const crearFactura = await fetch(`http://localhost:5000/productos/${productoId}`);
-           let response = await crearFactura.json();
-           console.log(response.producto.nombre)
-       })
-
-       document.querySelector("#productoId").addEventListener("keydown", async(e) =>{
-           const crearFactura = await fetch(`http://localhost:5000/productos/${e.key}`);
-           let response = await crearFactura.json();
-           document.querySelector("#precioUnitario").setAttribute("value", response.producto.precio_unitario);
-           document.querySelector("#productoNombre").setAttribute("value", response.producto.nombre);
-       })
-       document.querySelector("#clienteId").addEventListener("keydown", async(e) =>{
-           const crearFactura = await fetch(`http://localhost:5000/clientes/${e.key}`);
-           let response = await crearFactura.json();
-           document.querySelector("#clienteNombre").setAttribute("value", response.cliente.nombre);
-       })
-
-       document.querySelector("#crearFactura").addEventListener("submit", async (e) => {
-           e.preventDefault();
-           const clienteId = document.querySelector("#clienteId").value;
-           const facturaId = document.querySelector("#facturaId").value;
-           const productoId = document.querySelector("#productoId").value;
-           const cantidad = document.querySelector("#cantidad").value;
-           const total = document.querySelector("#total").value;
-           const fecha = document.querySelector("#fecha").value;
-           const crearCliente = await fetch("http://localhost:5000/facturas", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json",
-               },
-               body: JSON.stringify({
-                   clienteId,
-                   total,
-                   fecha,
-               })
-           });
-           let response = await crearCliente.json();
-
-           const crearDetalle = await fetch("http://localhost:5000/detalle-facturas", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json",
-               },
-               body: JSON.stringify({
-                   facturaId,
-                   productoId,
-                   cantidad,
-               })
-           });
-           let detalleResponse = await crearDetalle.json();
-           console.log(response, detalleResponse);
-       })
-   </script>
+   <script src="script-facturas.js"></script>
 </body>
 </html>

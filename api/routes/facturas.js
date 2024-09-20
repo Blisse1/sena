@@ -19,9 +19,9 @@ router.route("/")
     })
     .post(async (req, res) => {
         try {
-            const {clienteId, total, fecha} = req.body;
-            const sql = `INSERT into facturas (cliente_id, total, fecha) VALUES (?, ?, ?)`;
-            await connection.query(sql, [clienteId, total, fecha]);
+            const {clienteId, fecha} = req.body;
+            const sql = `INSERT into facturas (cliente_id, fecha) VALUES (?, ?)`;
+            await connection.query(sql, [clienteId, fecha]);
             return res.status(202).json({
                 message: "Factura created",
             }); 

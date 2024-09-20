@@ -29,49 +29,64 @@ CREATE TABLE productos (
 CREATE TABLE facturas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     cliente_id INT,
-    total DECIMAL(10, 2) NOT NULL,
-    -- AQUI QUEDE, EN COMO TRATAR UN ATRIBUTO CALCULADO
     FECHA DATE NOT NULL,
-    FOREIGN KEY (CLIENTE_ID) REFERENCES CLIENTES(ID)
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
     ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE DETALLE_FACTURAS (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    FACTURA_ID INT,
-    PRODUCTO_ID INT,
-    CANTIDAD INT NOT NULL,
-    FOREIGN KEY (FACTURA_ID) REFERENCES FACTURAS(ID),
+CREATE TABLE detalle_facturas(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    factura_id INT,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (factura_id) REFERENCES facturas(id)
     ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (PRODUCTO_ID) REFERENCES PRODUCTOS(ID)
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
     ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-INSERT INTO CLIENTES (NOMBRE, APELLIDO, EMPRESA, TELEFONO, DIRECCION) VALUES
-('JUAN', 'PÉREZ', 'TECH SOLUTIONS', '555-1234', 'AV. LIBERTADOR 1234'),
-('ANA', 'MARTÍNEZ', 'MARKETING SA', '555-5678', 'CALLE 9 DE JULIO 876'),
-('LUIS', 'GÓMEZ', 'CONSTRUCCIONES GÓMEZ', '555-8765', 'CALLE CORRIENTES 2345');
+INSERT INTO clientes (nombre, apellido, empresa, telefono, direccion) VALUES
+('juan', 'pérez', 'tech solutions', '555-1234', 'av. libertador 1234'),
+('ana', 'martínez', 'marketing sa', '555-5678', 'calle 9 de julio 876'),
+('luis', 'gómez', 'construcciones gómez', '555-8765', 'calle corrientes 2345');
 
-INSERT INTO CATEGORIAS (NOMBRE) VALUES
-('ELECTRÓNICA'),
-('HERRAMIENTAS'),
-('MOBILIARIO');
+INSERT INTO categorias (nombre) VALUES
+('electrónica'),
+('herramientas'),
+('mobiliario');
 
-INSERT INTO PRODUCTOS (NOMBRE, CATEGORIA_ID, PRECIO_UNITARIO, STOCK) VALUES
-('LAPTOP', 1, 1200.00, 50),
-('TALADRO', 2, 150.00, 30),
-('ESCRITORIO', 3, 225.00, 20),
-('RATÓN', 1, 25.00, 100),
-('TECLADO', 1, 45.00, 80);
+INSERT INTO productos (nombre, categoria_id, precio_unitario, stock) VALUES
+('laptop', 1, 1200.00, 50),
+('taladro', 2, 150.00, 30),
+('escritorio', 3, 225.00, 20),
+('ratón', 1, 25.00, 100),
+('teclado', 1, 45.00, 80);
 
-INSERT INTO FACTURAS (CLIENTE_ID, TOTAL, FECHA) VALUES
-(1, 1250.00, '2024-08-22'),
-(2, 300.00, '2024-08-22'),
-(3, 450.00, '2024-08-22');
+INSERT INTO facturas (cliente_id, fecha) VALUES
+(1, '2024-08-22'),
+(2, '2024-08-22'),
+(3, '2024-08-22');
 
-INSERT INTO DETALLE_FACTURAS (FACTURA_ID, PRODUCTO_ID, CANTIDAD) VALUES
+INSERT INTO detalle_facturas (factura_id, producto_id, cantidad) VALUES
 (1, 1, 1),
 (1, 4, 2),
 (1, 5, 1), 
 (2, 2, 2),  
-(3, 3, 2);   
+(3, 3, 2);
+   
+CREATE VIEW vista_facturas_totales AS
+SELECT 
+    f.id AS factura_id,
+    f.cliente_id,
+    f.fecha,
+    SUM(p.precio_unitario * df.cantidad) AS total_calculado
+FROM 
+    facturas f
+JOIN 
+    detalle_facturas df ON f.id = df.factura_id
+JOIN 
+    productos p ON df.producto_id = p.id
+GROUP BY 
+    f.id, f.cliente_id, f.fecha;
+
+SELECT * FROM vista_facturas_totales WHERE factura_id = 1;
