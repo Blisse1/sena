@@ -13,60 +13,27 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/Documents/projects/unfinished/jidoka-sena/index.js
+badd +21 ~/Documents/projects/unfinished/jidoka-sena/index.js
 badd +81 database.sql
 badd +1 ~/Documents/projects/unfinished/jidoka-sena/jsconfig.json
 badd +30 ~/Documents/projects/unfinished/jidoka-sena/api/routes/detalle-facturas.js
-badd +15 ~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js
+badd +17 ~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js
 badd +35 public/script-facturas.js
 badd +43 views/facturas.html
-badd +1 api/index.js
-badd +0 fugitive:///home/bliss/Documents/projects/unfinished/jidoka-sena/.git//
+badd +36 api/index.js
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/routes/clientes.js
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/combined.log
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/app-error.log
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/app-info.log
+badd +1 ~/Documents/projects/unfinished/jidoka-sena/api/exceptions.log
+badd +1 oil:///home/bliss/Documents/projects/unfinished/jidoka-sena/
+badd +1 package.json
 argglobal
 %argdel
-$argadd ./
-edit fugitive:///home/bliss/Documents/projects/unfinished/jidoka-sena/.git//
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe '1resize ' . ((&lines * 14 + 15) / 31)
-exe '2resize ' . ((&lines * 14 + 15) / 31)
+$argadd oil:///home/bliss/Documents/projects/unfinished/jidoka-sena/
+edit package.json
 argglobal
-balt database.sql
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 7) / 14)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 0
-wincmd w
-argglobal
-if bufexists(fnamemodify("~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js", ":p")) | buffer ~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js | else | edit ~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js | endif
-if &buftype ==# 'terminal'
-  silent file ~/Documents/projects/unfinished/jidoka-sena/api/routes/facturas.js
-endif
-balt database.sql
+balt api/index.js
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -77,15 +44,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((6 * winheight(0) + 7) / 14)
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 15
-normal! 029|
-wincmd w
-exe '1resize ' . ((&lines * 14 + 15) / 31)
-exe '2resize ' . ((&lines * 14 + 15) / 31)
+keepjumps 1
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -93,13 +57,12 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

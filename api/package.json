@@ -1,9 +1,9 @@
 {
   "name": "api",
   "module": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "^1.1.10"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

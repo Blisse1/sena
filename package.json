@@ -1,7 +1,7 @@
 {
   "name": "jidoka-sena",
   "module": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "client": "bun --hot index.js",
     "server": "cd api && bun --hot index.js",
