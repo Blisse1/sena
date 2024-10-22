@@ -10,9 +10,16 @@ document.querySelector("#productoId").addEventListener("keyup", async(e) =>{
 })
 
 document.querySelector("#clienteId").addEventListener("keyup", async(e) =>{
-    const crearCliente = await fetch(`http://localhost:5000/clientes/${e.key}`);
-    let response = await crearCliente.json();
-    clienteNombre.setAttribute("value", response.cliente.nombre);
+    let clienteId = parseFloat(e.key);
+    if(isNaN(clienteId)){
+        return;
+    }else{
+        const crearCliente = await fetch(`http://localhost:5000/clientes/${clienteId}`);
+        let response = await crearCliente.json();
+        setTimeout(() => {
+            return clienteNombre.setAttribute("value", response.cliente.nombre);
+        }, 500)
+    }
 })
 
 document.querySelector("#cantidad").addEventListener("keyup", () => {
