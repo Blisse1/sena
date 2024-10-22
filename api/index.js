@@ -7,6 +7,12 @@ const port = process.env.PORT || 5000;
 
 dotenv.config();
 
+const corsOptions = {
+    origin: "http://localhost:3000",
+};
+
+app.use(cors(corsOptions))
+
 // routes
 const clientes = require("./routes/clientes");
 const categorias = require("./routes/categorias");
@@ -18,9 +24,6 @@ const morganMiddleware = morgan(
     ":method :url :status :res[content-length] - :response-time ms",
 );
 
-const corsOptions = {
-    origin: "http://localhost:3000",
-};
 // Middleware
 app.use(morganMiddleware);
 app.use("/clientes", clientes);
@@ -28,7 +31,6 @@ app.use("/categorias", categorias);
 app.use("/productos", productos);
 app.use("/facturas", facturas);
 app.use("/detalle-facturas", detalleFacturas);
-app.use(cors(corsOptions));
 app.use(express.json());
 
 app.listen(port, () => {
